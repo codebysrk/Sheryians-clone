@@ -1,0 +1,219 @@
+/* --- Basic Setup & Variables --- */
+@font-face {
+  font-family: 'Hel';
+  src: url('../fonts/HelveticaNowDisplay-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Hell';
+  src: url('../fonts/HelveticaNowDisplay-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Helm';
+  src: url('../fonts/HelveticaNowDisplay-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Helb';
+  src: url('../fonts/HelveticaNowDisplay-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Heleb';
+  src: url('../fonts/HelveticaNowDisplay-ExtraBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Neu';
+  src: url('../fonts/NeueMachina-Regular.ttf') format('woff2');
+}
+@font-face {
+  font-family: 'Neul';
+  src: url('../fonts/NeueMachina-Light.ttf') format('woff2');
+}
+@font-face {
+  font-family: 'Neub';
+  src: url('../fonts/NeueMachina-Bold.ttf') format('woff2');
+}
+@font-face {
+  font-family: 'juana-regular';
+  src: url('../fonts/juana-regularit.otf') format('woff2');
+}
+@font-face {
+  font-family: 'juana-light';
+  src: url('../fonts/juana-thinit.otf') format('woff2');
+}
+
+:root {
+  --bg-color: #0c0c0c;
+  --card-bg-color: rgba(30, 30, 30, 0.6);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --text-color: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --btn-hover: #2aedbc;
+  --primary-color: #27e0b3;
+  --primary-dark: #24cfa6;
+  --orange-color: #ae4d46;
+  --font-family: 'Inter', sans-serif;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--text-color);
+}
+html,
+body {
+  width: 100%;
+  height: 100;
+  background-color: var(--bg-color);
+  font-family: var(--font-family);
+  background-image: url(../img/bg-img.svg);
+}
+main {
+  width: 100%;
+}
+
+nav {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.2rem 4.5rem;
+  font-family: 'neu';
+  position: sticky;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(24, 24, 24, 0);
+  backdrop-filter: blur(5px);
+}
+nav .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  cursor: pointer;
+  font-size: 1rem;
+}
+nav .logo .logo-img {
+  width: 2.2em;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+.nav-links a {
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.nav-links a:nth-child(5) {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  padding: 0.5rem 1.1em;
+  border-radius: 3px;
+  font-weight: 700;
+}
+.nav-links a:nth-child(5):hover {
+  background-color: var(--btn-hover);
+}
+
+/* Hemburger Menu */
+nav .menu {
+  display: none;
+}
+
+.text-highlight {
+  color: var(--primary-dark);
+}
+
+.hero-content {
+  position: relative;
+  margin-top: 8.2rem;
+  padding: 0 25vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero-title {
+  text-align: center;
+  line-height: 4.3rem;
+  font-family: 'neul';
+  font-size: 5.2vw;
+  font-weight: 300;
+}
+.italic-text {
+  font-family: 'juana-light';
+  font-weight: 500;
+}
+
+.hero-content a {
+  text-decoration: none;
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  margin-top: 1.5rem;
+  padding: 0.55rem 1.5em;
+  border-radius: 1rem;
+  /* font-weight: 500; */
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95em;
+}
+.hero-content a:hover {
+  background-color: var(--btn-hover);
+}
+.hero-content .overlay-text {
+  width: 200px;
+  font-size: 0.62em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(165%, 75%);
+}
+.hero-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10vw;
+  gap: 7vw;
+}
+.hero-bottom .mildstone .text {
+  font-family: 'neu';
+  text-align: center;
+  font-size: 0.9em;
+}
+.middle-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  margin: 10vw auto;
+  padding: 0 4.5rem;
+  align-items: center;
+  justify-content: space-around;
+}
+.middle-section .middle-top {
+  font-size: 2.8vw;
+  text-align: center;
+  font-family: 'neu';
+  line-height: 2.8vw;
+}
+.middle-section .video-container {
+  width: 68%;
+  aspect-ratio: 16/9;
+  border-radius: 2vw;
+  overflow: hidden;
+}
+.middle-section .video-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.middle-bottom a {
+  text-decoration: none;
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  padding: 0.55rem 1.5em;
+  border-radius: 8px;
+  font-size: 0.95em;
+  font-weight: 500;
+  cursor: pointer;
+}

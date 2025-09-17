@@ -1,609 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Dashboard</title>
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <style>
-    :root {
-      --bg: #0b1020;
-      --bg-soft: #0f1530;
-      --card: #141a39;
-      --text: #e9ecf1;
-      --muted: #9aa5b1;
-      --primary: #6c8cff;
-      --primary-strong: #5274ff;
-      --accent: #2ad3b5;
-      --danger: #ff6b6b;
-      --warning: #ffb020;
-      --border: #1e2748;
-      --shadow: 0 10px 30px rgba(0,0,0,0.35);
-      --radius: 14px;
-    }
-    .theme-light {
-      --bg: #f6f8fb;
-      --bg-soft: #eef2f8;
-      --card: #ffffff;
-      --text: #121826;
-      --muted: #5b6472;
-      --primary: #3758f9;
-      --primary-strong: #2b49e8;
-      --accent: #00b894;
-      --danger: #e53935;
-      --warning: #f59e0b;
-      --border: #e6eaf2;
-      --shadow: 0 8px 20px rgba(16,24,40,0.08);
-    }
-
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
-      color: var(--text);
-    }
-
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; color: inherit; border: 0; background: transparent; cursor: pointer; }
-
-    /* Layout */
-    .app {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      grid-template-rows: 64px 1fr;
-      grid-template-areas:
-        "sidebar topbar"
-        "sidebar main";
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    .sidebar {
-      grid-area: sidebar;
-      background: linear-gradient(180deg, var(--card), rgba(20,26,57,0.6));
-      border-right: 1px solid var(--border);
-      padding: 18px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, rgba(108,140,255,0.18), rgba(42,211,181,0.18));
-      box-shadow: var(--shadow);
-    }
-    .brand i {
-      font-size: 22px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .brand span {
-      font-weight: 700;
-      letter-spacing: 0.2px;
-    }
-    .nav {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-top: 6px;
-    }
-    .nav a {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 12px;
-      border-radius: 10px;
-      color: var(--muted);
-      transition: all 0.2s ease;
-    }
-    .nav a.active, .nav a:hover {
-      color: var(--text);
-      background: rgba(108,140,255,0.12);
-    }
-    .nav a i { font-size: 18px; }
-    .sidebar-footer {
-      margin-top: auto;
-      padding-top: 8px;
-      border-top: 1px dashed var(--border);
-      display: grid;
-      gap: 8px;
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 12px;
-      border-radius: 10px;
-      background: rgba(42,211,181,0.12);
-      color: var(--accent);
-    }
-
-    .topbar {
-      grid-area: topbar;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 18px;
-      border-bottom: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(20,26,57,0.35), rgba(20,26,57,0.15));
-      backdrop-filter: blur(6px);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    .left-controls { display: flex; align-items: center; gap: 10px; }
-    .icon-btn {
-      height: 40px; width: 40px; display: grid; place-items: center;
-      border-radius: 10px; background: var(--card); color: var(--text);
-      border: 1px solid var(--border); box-shadow: var(--shadow);
-      transition: transform 0.1s ease;
-    }
-    .icon-btn:hover { transform: translateY(-1px); }
-    .search {
-      display: flex; align-items: center; gap: 10px;
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 12px; padding: 8px 12px; min-width: 260px; max-width: 460px; flex: 1;
-    }
-    .search input {
-      flex: 1; background: transparent; border: 0; outline: 0; color: var(--text);
-    }
-    .right-controls {
-      display: flex; align-items: center; gap: 10px;
-    }
-    .user {
-      display: flex; align-items: center; gap: 10px;
-      padding: 6px 10px; border: 1px solid var(--border);
-      border-radius: 12px; background: var(--card);
-    }
-    .avatar {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      display: grid; place-items: center; color: #fff; font-size: 14px; font-weight: 600;
-    }
-
-    .main {
-      grid-area: main;
-      overflow: auto;
-      padding: 18px;
-    }
-    .grid {
-      display: grid;
-      gap: 16px;
-    }
-    .stats {
-      grid-template-columns: repeat(4, minmax(220px, 1fr));
-    }
-    .stat-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      box-shadow: var(--shadow);
-      display: grid;
-      gap: 12px;
-    }
-    .stat-top { display: flex; align-items: center; justify-content: space-between; }
-    .stat-top .label { color: var(--muted); font-size: 13px; }
-    .stat-value { font-size: 28px; font-weight: 700; letter-spacing: 0.2px; }
-    .stat-delta {
-      display: inline-flex; align-items: center; gap: 6px; font-size: 13px; padding: 4px 8px; border-radius: 999px;
-    }
-    .delta-up { background: rgba(42,211,181,0.12); color: var(--accent); }
-    .delta-down { background: rgba(255,107,107,0.12); color: var(--danger); }
-
-    .panel {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      box-shadow: var(--shadow);
-    }
-    .panel-header {
-      display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;
-    }
-    .panel-title { font-weight: 600; }
-    .panel-actions { display: flex; gap: 8px; }
-
-    .charts {
-      grid-template-columns: 2fr 1fr;
-      align-items: start;
-    }
-    .chart-wrap { min-height: 280px; }
-    canvas { width: 100% !important; height: 280px !important; }
-
-    .table-wrap {
-      overflow: auto;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-    }
-    table {
-      width: 100%; border-collapse: collapse; background: transparent;
-    }
-    th, td {
-      padding: 12px 14px; border-bottom: 1px solid var(--border); white-space: nowrap;
-    }
-    th {
-      position: sticky; top: 0; background: linear-gradient(180deg, var(--card), rgba(0,0,0,0));
-      text-align: left; font-size: 13px; color: var(--muted);
-    }
-    tr:hover td { background: rgba(108,140,255,0.05); }
-
-    /* Responsive */
-    @media (max-width: 1100px) {
-      .stats { grid-template-columns: repeat(2, minmax(220px, 1fr)); }
-      .charts { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 860px) {
-      .app {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-          "topbar"
-          "main";
-      }
-      .sidebar {
-        position: fixed; inset: 0 40% 0 0; max-width: 320px;
-        transform: translateX(-100%);
-        transition: transform 0.2s ease;
-        z-index: 20;
-      }
-      .sidebar.show { transform: translateX(0); }
-    }
-  </style>
-</head>
-<body>
-  <a href="#main" style="position:absolute;left:-999px;top:-999px;">Skip to content</a>
-  <div class="app theme-light" id="app">
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar" aria-label="Sidebar navigation">
-      <div class="brand">
-        <i class="ri-pulse-line" aria-hidden="true"></i>
-        <span>Nova Admin</span>
-      </div>
-      <nav class="nav" role="navigation">
-        <a href="#" class="active"><i class="ri-dashboard-3-line"></i><span>Dashboard</span></a>
-        <a href="#"><i class="ri-shopping-bag-3-line"></i><span>Orders</span></a>
-        <a href="#"><i class="ri-user-3-line"></i><span>Customers</span></a>
-        <a href="#"><i class="ri-box-3-line"></i><span>Products</span></a>
-        <a href="#"><i class="ri-bar-chart-2-line"></i><span>Analytics</span></a>
-        <a href="#"><i class="ri-settings-3-line"></i><span>Settings</span></a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sheryians</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/mobile.css" />
+    <link rel="stylesheet" href="./assets/css/tablet.css" />
+  </head>
+  <body>
+    <main class="main">
+      <!-- <header></header> -->
+      <nav class="navbar">
+        <div class="logo">
+          <img class="logo-img" src="./assets/img/logo.webp" alt="logo-img" />
+          <span class="logo-text">Sheryians<br />coding school</span>
+        </div>
+        <div class="nav-links">
+          <a href="">Home</a>
+          <a href="">Courses</a>
+          <a href="">Cohort 2.0</a>
+          <a href="">Request Callback</a>
+          <a href="">Sign In</a>
+        </div>
+        <div class="menu"></div>
       </nav>
-      <div class="sidebar-footer">
-        <div class="badge"><i class="ri-flashlight-line"></i><span>Pro tips: Press / to search</span></div>
-        <a class="nav-link" href="#" style="color:var(--muted); font-size: 13px;">Docs & Guides</a>
-      </div>
-    </aside>
-
-    <!-- Topbar -->
-    <header class="topbar">
-      <div class="left-controls">
-        <button class="icon-btn" id="menuBtn" aria-label="Toggle menu"><i class="ri-menu-line"></i></button>
-        <div class="search" role="search">
-          <i class="ri-search-2-line" aria-hidden="true"></i>
-          <input id="searchInput" type="search" placeholder="Search orders, customers, products..." aria-label="Search"/>
+      <section class="hero-section">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            <span
+              >We only <span class="text-highlight">teach</span> what we are
+              really really <span class="italic-text">good</span> at.</span
+            >
+          </h1>
+          <a href="#">Check Courses-Make an Impact</a>
+          <span class="overlay-text"
+            >Get ready to
+            <span class="text-highlight">accelerate your career</span> with
+            customized courses and leave your mark in the tech industry</span
+          >
         </div>
-      </div>
-      <div class="right-controls">
-        <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">
-          <i class="ri-sun-line" id="themeIcon"></i>
-        </button>
-        <button class="icon-btn" title="Notifications" aria-label="Notifications"><i class="ri-notification-3-line"></i></button>
-        <div class="user" aria-label="User menu">
-          <div class="avatar" aria-hidden="true">NA</div>
-          <span style="font-size: 14px;">Admin</span>
-          <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
-        </div>
-      </div>
-    </header>
-
-    <!-- Main -->
-    <main class="main" id="main">
-      <!-- Stats -->
-      <section class="grid stats" aria-label="Key metrics">
-        <article class="stat-card">
-          <div class="stat-top">
-            <span class="label">Total Revenue</span>
-            <i class="ri-line-chart-line" aria-hidden="true"></i>
-          </div>
-          <div class="stat-value" id="revValue">$128,940</div>
-          <div class="stat-delta delta-up"><i class="ri-arrow-up-s-line"></i><span>+8.4%</span></div>
-        </article>
-        <article class="stat-card">
-          <div class="stat-top">
-            <span class="label">Orders</span>
-            <i class="ri-shopping-cart-2-line" aria-hidden="true"></i>
-          </div>
-          <div class="stat-value" id="ordValue">2,419</div>
-          <div class="stat-delta delta-up"><i class="ri-arrow-up-s-line"></i><span>+2.1%</span></div>
-        </article>
-        <article class="stat-card">
-          <div class="stat-top">
-            <span class="label">New Customers</span>
-            <i class="ri-user-add-line" aria-hidden="true"></i>
-          </div>
-          <div class="stat-value" id="custValue">384</div>
-          <div class="stat-delta delta-down"><i class="ri-arrow-down-s-line"></i><span>-0.9%</span></div>
-        </article>
-        <article class="stat-card">
-          <div class="stat-top">
-            <span class="label">Refund Rate</span>
-            <i class="ri-refund-2-line" aria-hidden="true"></i>
-          </div>
-          <div class="stat-value" id="refValue">1.7%</div>
-          <div class="stat-delta delta-up"><i class="ri-arrow-up-s-line"></i><span>-0.3 pp</span></div>
-        </article>
-      </section>
-
-      <!-- Charts -->
-      <section class="grid charts" style="margin-top: 6px;">
-        <article class="panel">
-          <div class="panel-header">
-            <div class="panel-title">Revenue last 12 months</div>
-            <div class="panel-actions">
-              <button class="icon-btn" title="Download"><i class="ri-download-2-line"></i></button>
-              <button class="icon-btn" title="Refresh" id="refreshChart"><i class="ri-refresh-line"></i></button>
+        <div class="hero-bottom">
+          <div class="mildstone">
+            <div class="text">
+              <h2>25K</h2>
+              <p>Students taught</p>
             </div>
           </div>
-          <div class="chart-wrap">
-            <canvas id="revChart"></canvas>
+          <div class="mildstone">
+            <div class="text">
+              <h2>20+</h2>
+              <p>Instructors</p>
+            </div>
           </div>
-        </article>
-
-        <article class="panel">
-          <div class="panel-header">
-            <div class="panel-title">Sales by channel</div>
-            <div class="panel-actions"></div>
-          </div>
-          <div class="chart-wrap">
-            <canvas id="chanChart"></canvas>
-          </div>
-        </article>
-      </section>
-
-      <!-- Table -->
-      <section class="panel" style="margin-top: 6px;">
-        <div class="panel-header">
-          <div class="panel-title">Recent orders</div>
-          <div class="panel-actions">
-            <button class="icon-btn" title="Filter"><i class="ri-filter-3-line"></i></button>
-            <button class="icon-btn" title="Add order" id="addOrder"><i class="ri-add-line"></i></button>
+          <div class="mildstone">
+            <div class="text">
+              <h2>1M</h2>
+              <p>Youtube Subs.</p>
+            </div>
           </div>
         </div>
-        <div class="table-wrap" role="region" aria-label="Recent orders table">
-          <table>
-            <thead>
-              <tr>
-                <th>Order ID</th>
-                <th>Customer</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Total</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="ordersBody">
-              <!-- Rows injected by JS -->
-            </tbody>
-          </table>
+      </section>
+      <section class="middle-section">
+        <div class="middle-top">
+          <span>
+            we do whatever it takes to help you <br />
+            <span class="text-highlight">understand the concepts.</span>
+          </span>
+        </div>
+        <div class="video-container">
+          <iframe
+            src="https://www.youtube.com/embed/60SRAWmMXyc?si=Gv1Zou2lzWubxxuK"
+            frameborder="0"
+          ></iframe>
+        </div>
+        <div class="middle-bottom">
+          <a href="#">Explore free learning</a>
         </div>
       </section>
     </main>
-  </div>
-
-  <script>
-    // Basic state
-    const app = document.getElementById('app');
-    const themeBtn = document.getElementById('themeBtn');
-    const themeIcon = document.getElementById('themeIcon');
-    const menuBtn = document.getElementById('menuBtn');
-    const sidebar = document.getElementById('sidebar');
-
-    // Theme persistence
-    function setTheme(mode) {
-      if (mode === 'dark') app.classList.remove('theme-light');
-      else app.classList.add('theme-light');
-      localStorage.setItem('theme', mode);
-      themeIcon.className = mode === 'dark' ? 'ri-moon-line' : 'ri-sun-line';
-    }
-    const saved = localStorage.getItem('theme');
-    setTheme(saved || 'light');
-
-    themeBtn.addEventListener('click', () => {
-      const now = app.classList.contains('theme-light') ? 'dark' : 'light';
-      setTheme(now);
-    });
-
-    // Sidebar toggle (mobile)
-    menuBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('show');
-    });
-    // Close sidebar when clicking outside (mobile)
-    document.addEventListener('click', (e) => {
-      if (window.innerWidth <= 860) {
-        if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-          sidebar.classList.remove('show');
-        }
-      }
-    });
-
-    // Search keyboard shortcut
-    const searchInput = document.getElementById('searchInput');
-    document.addEventListener('keydown', (e) => {
-      if (e.key === '/' && document.activeElement !== searchInput) {
-        e.preventDefault();
-        searchInput.focus();
-      }
-    });
-
-    // Charts
-    const monthLabels = ['Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'];
-
-    const revCtx = document.getElementById('revChart');
-    const revChart = new Chart(revCtx, {
-      type: 'line',
-      data: {
-        labels: monthLabels,
-        datasets: [{
-          label: 'Revenue',
-          data: [9.8, 10.2, 11.1, 10.4, 12.7, 13.1, 14.3, 13.9, 15.6, 16.0, 16.8, 17.4],
-          borderColor: getComputedStyle(document.documentElement).getPropertyValue('--primary').trim(),
-          backgroundColor: 'rgba(108,140,255,0.18)',
-          tension: 0.35,
-          borderWidth: 2,
-          fill: true,
-          pointRadius: 3,
-          pointHoverRadius: 5
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          y: { grid: { color: 'rgba(154,165,177,0.15)' }, ticks: { color: getVar('--muted') } },
-          x: { grid: { display: false }, ticks: { color: getVar('--muted') } }
-        },
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            backgroundColor: 'rgba(20,26,57,0.92)',
-            borderColor: getVar('--border'),
-            borderWidth: 1
-          }
-        }
-      }
-    });
-
-    const chanCtx = document.getElementById('chanChart');
-    const chanChart = new Chart(chanCtx, {
-      type: 'doughnut',
-      data: {
-        labels: ['Web', 'Mobile', 'Retail', 'Wholesale'],
-        datasets: [{
-          data: [48, 32, 14, 6],
-          backgroundColor: [
-            getVar('--primary'),
-            getVar('--accent'),
-            '#a78bfa',
-            '#f59e0b'
-          ],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        cutout: '62%',
-        plugins: {
-          legend: { position: 'bottom', labels: { color: getVar('--muted') } }
-        }
-      }
-    });
-
-    function getVar(name) {
-      return getComputedStyle(app).getPropertyValue(name).trim();
-    }
-
-    // Refresh button randomizes the revenue dataset slightly
-    document.getElementById('refreshChart').addEventListener('click', () => {
-      revChart.data.datasets[0].data = revChart.data.datasets[0].data.map(v => +(v * (0.95 + Math.random()*0.1)).toFixed(2));
-      revChart.update();
-      // subtle visual feedback
-      flashButton('refreshChart');
-    });
-
-    function flashButton(id) {
-      const btn = document.getElementById(id);
-      btn.style.transform = 'scale(0.96)';
-      setTimeout(() => (btn.style.transform = ''), 120);
-    }
-
-    // Orders table dummy data
-    const ordersBody = document.getElementById('ordersBody');
-    const statuses = [
-      { text: 'Paid', cls: 'delta-up' },
-      { text: 'Pending', cls: '' },
-      { text: 'Shipped', cls: 'delta-up' },
-      { text: 'Refunded', cls: 'delta-down' }
-    ];
-
-    function currency(n) {
-      return n.toLocaleString(undefined, { style: 'currency', currency: 'USD' });
-    }
-
-    const sampleCustomers = ['Aarav Shah','Isha Verma','Rohan Patel','Ananya Singh','Vikram Rao','Neha Gupta','Liam Chen','Maya Kapoor'];
-    const sampleRows = Array.from({length: 10}).map((_, i) => ({
-      id: `#${10045 + i}`,
-      customer: sampleCustomers[Math.floor(Math.random()*sampleCustomers.length)],
-      date: new Date(Date.now() - Math.random()*14*24*3600*1000).toLocaleDateString(),
-      status: statuses[Math.floor(Math.random()*statuses.length)],
-      total: +(50 + Math.random()*900).toFixed(2)
-    }));
-
-    function renderOrders(rows) {
-      ordersBody.innerHTML = rows.map(r => `
-        <tr>
-          <td>${r.id}</td>
-          <td>${r.customer}</td>
-          <td>${r.date}</td>
-          <td>
-            <span class="stat-delta ${r.status.cls}" style="padding:4px 10px;">
-              ${r.status.text}
-            </span>
-          </td>
-          <td>${currency(r.total)}</td>
-          <td>
-            <button class="icon-btn" title="View"><i class="ri-eye-line"></i></button>
-            <button class="icon-btn" title="Edit"><i class="ri-pencil-line"></i></button>
-            <button class="icon-btn" title="Delete"><i class="ri-delete-bin-6-line"></i></button>
-          </td>
-        </tr>
-      `).join('');
-    }
-    renderOrders(sampleRows);
-
-    // Add order (mock)
-    document.getElementById('addOrder').addEventListener('click', () => {
-      const i = Math.floor(Math.random()*1000);
-      const row = {
-        id: `#${20000 + i}`,
-        customer: sampleCustomers[Math.floor(Math.random()*sampleCustomers.length)],
-        date: new Date().toLocaleDateString(),
-        status: statuses[Math.floor(Math.random()*statuses.length)],
-        total: +(50 + Math.random()*900).toFixed(2)
-      };
-      sampleRows.unshift(row);
-      renderOrders(sampleRows.slice(0, 12));
-      flashButton('addOrder');
-    });
-
-    // Recolor charts on theme change
-    const observer = new MutationObserver(() => {
-      const axisColor = getVar('--muted');
-      revChart.options.scales.x.ticks.color = axisColor;
-      revChart.options.scales.y.ticks.color = axisColor;
-      revChart.data.datasets[0].borderColor = getVar('--primary');
-      revChart.update();
-
-      chanChart.options.plugins.legend.labels.color = axisColor;
-      chanChart.data.datasets[0].backgroundColor = [
-        getVar('--primary'), getVar('--accent'), '#a78bfa', '#f59e0b'
-      ];
-      chanChart.update();
-    });
-    observer.observe(app, { attributes: true, attributeFilter: ['class'] });
-  </script>
-</body>
+  </body>
 </html>

@@ -1,0 +1,22 @@
+/* Mobile first (by default mobile styles likho) */
+
+/* Tablet */
+@media (min-width: 768px) {
+  main h1{
+  font-size: 3rem;
+}
+}
+
+/* Laptop */
+@media (min-width: 1024px) {
+  body {
+    font-size: 20px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1280px) {
+  body {
+    font-size: 22px;
+  }
+}
