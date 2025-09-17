@@ -36,6 +36,7 @@
   .hero-content {
     padding: 0 2rem;
     margin-top: 6rem;
+    position: relative;
   }
 
   .hero-title {
@@ -52,6 +53,9 @@
     width: 150px;
     font-size: 0.55em;
     transform: translate(150%, 70%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
   }
 
   .hero-bottom {
