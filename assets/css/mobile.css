@@ -1,22 +1,84 @@
-/* Mobile first (by default mobile styles likho) */
-
-/* Tablet */
-@media (min-width: 768px) {
-  main h1{
-  font-size: 3rem;
-}
-}
-
-/* Laptop */
-@media (min-width: 1024px) {
-  body {
-    font-size: 20px;
+/* --- Mobile Styles --- */
+@media (max-width: 768px) {
+  nav {
+    padding: 1rem 1.5rem;
   }
-}
 
-/* Desktop */
-@media (min-width: 1280px) {
-  body {
-    font-size: 22px;
+  .nav-links {
+    display: none; /* hide desktop links */
+    flex-direction: column;
+    background-color: rgba(24, 24, 24, 0.95);
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 60%;
+    height: calc(100vh - 60px);
+    padding: 2rem;
+    gap: 2rem;
+  }
+  .nav-links.active {
+    display: flex;
+  }
+
+  nav .menu {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    background-image: url('../img/menu-icon.svg'); /* Hamburger icon */
+    background-size: cover;
+    cursor: pointer;
+  }
+
+  .logo .logo-text {
+    font-size: 0.85rem;
+  }
+
+  .hero-content {
+    padding: 0 2rem;
+    margin-top: 6rem;
+  }
+
+  .hero-title {
+    font-size: 6vw;
+    line-height: 1.2em;
+  }
+
+  .hero-content a {
+    padding: 0.5rem 1rem;
+    font-size: 0.9em;
+  }
+
+  .hero-content .overlay-text {
+    width: 150px;
+    font-size: 0.55em;
+    transform: translate(150%, 70%);
+  }
+
+  .hero-bottom {
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 6rem;
+  }
+
+  .middle-section {
+    margin: 5rem 1rem;
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+
+  .middle-section .middle-top {
+    font-size: 4vw;
+    line-height: 1.2em;
+  }
+
+  .middle-section .video-container {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 1rem;
+  }
+
+  .middle-bottom a {
+    padding: 0.5rem 1rem;
+    font-size: 0.9em;
   }
 }
