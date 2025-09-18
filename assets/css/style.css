@@ -52,6 +52,7 @@
   --orange-color: #ae4d46;
   --font-family: 'Inter', sans-serif;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -61,12 +62,19 @@
 html,
 body {
   width: 100%;
-  height: 100;
+  height: 100%;
   background-color: var(--bg-color);
-  font-family: var(--font-family);
-  background-image: url(../img/bg-img.svg);
+  font-family: 'hel';
+  overflow: auto; /* scroll allow */
+  -ms-overflow-style: none; /* IE, purane Edge */
+  scrollbar-width: none; /* Firefox */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
 }
 main {
+  background-image: url(../img/bg-img.svg);
   width: 100%;
 }
 
@@ -76,7 +84,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2.2rem 4.5rem;
+  padding: 2.2rem 4.3rem;
   font-family: 'neu';
   position: sticky;
   left: 0;
@@ -152,22 +160,22 @@ nav .menu {
   color: var(--bg-color);
   margin-top: 1.5rem;
   padding: 0.55rem 1.5em;
-  border-radius: 1rem;
-  /* font-weight: 500; */
   border-radius: 8px;
   cursor: pointer;
-  font-size: 0.95em;
+  font-family: 'helm';
+  font-size: 1.3em;
 }
 .hero-content a:hover {
   background-color: var(--btn-hover);
 }
 .hero-content .overlay-text {
-  width: 200px;
-  font-size: 0.62em;
+  width: 190px;
+  font-size: 0.85em;
+  font-family: 'hell';
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(165%, 75%);
+  transform: translate(175%, 80%);
 }
 .hero-bottom {
   display: flex;
@@ -179,7 +187,7 @@ nav .menu {
 .hero-bottom .mildstone .text {
   font-family: 'neu';
   text-align: center;
-  font-size: 0.9em;
+  font-size: 1.2em;
 }
 .middle-section {
   display: flex;
@@ -191,7 +199,7 @@ nav .menu {
   justify-content: space-around;
 }
 .middle-section .middle-top {
-  font-size: 2.8vw;
+  font-size: 2.7vw;
   text-align: center;
   font-family: 'neu';
   line-height: 2.8vw;
@@ -211,9 +219,9 @@ nav .menu {
   text-decoration: none;
   background-color: var(--primary-color);
   color: var(--bg-color);
-  padding: 0.55rem 1.5em;
+  padding: 0.7rem 1.5em;
   border-radius: 8px;
-  font-size: 0.95em;
-  font-weight: 500;
+  font-size: 1.3em;
+  font-family: 'helm';
   cursor: pointer;
 }
