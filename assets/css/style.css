@@ -42,7 +42,7 @@
 
 :root {
   --bg-color: #0c0c0c;
-  --card-bg-color: rgba(30, 30, 30, 0.6);
+  --card-bg-color: #171717;
   --border-color: rgba(255, 255, 255, 0.1);
   --text-color: #e0e0e0;
   --text-secondary: #a0a0a0;
@@ -51,6 +51,9 @@
   --primary-dark: #24cfa6;
   --orange-color: #ae4d46;
   --font-family: 'Inter', sans-serif;
+  --live-color: #882727;
+  --tag-color: #2c2c2c;
+  --vertical-padding: 4.3rem;
 }
 
 * {
@@ -225,4 +228,105 @@ nav .menu {
   font-family: 'helm';
   cursor: pointer;
 }
+.courses-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.courses-section .courses-title {
+  margin: 0 var(--vertical-padding);
+  font-family: 'neul';
+  font-size: 3rem;
+  font-weight: 300;
+}
+.scroll-container {
+  display: grid;
+  gap: 2rem;
+  row-gap: 4rem;
+  flex-wrap: wrap;
+  grid-template-columns: repeat(4, 1fr);
+  /* background-color: #27e0b3; */
+  padding: 0 4.3rem;
+}
 
+/* Hide scrollbar for Chrome, Safari, Opera */
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-item {
+  background-color: var(--card-bg-color);
+  margin: 2rem 0;
+  border-radius: 0.6rem;
+  overflow: hidden;
+}
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.card-body {
+  flex: 1 0 auto;
+  padding: 1rem 2rem;
+  padding-right: calc(2rem - 0.2em);
+  border-radius: 0.8rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  flex-grow: 1;
+  letter-spacing: 0.02em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.card-body-tags {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+.tag {
+  padding: 0.3rem 0.6rem;
+  background-color: var(--tag-color);
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+.live {
+  background-color: var(--live-color);
+}
+.card-body-bottom {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+.card-body-bottom .left span {
+  color: var(--primary-dark);
+}
+.card-body-bottom .right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.card-body-bottom .right .div-left {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 1.5rem;
+}
+del {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+.card-body-bottom .right .div-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.discount {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  padding: 0.3rem 0.5rem;
+  border-radius: 2px;
+  font-size: 0.8rem;
+  text-align: left;
+}
