@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Sheryians Coding School offers top-rated courses to accelerate your career in the tech industry. Learn from the best and make an impact."
+    />
+    <meta
+      name="keywords"
+      content="coding school, learn to code, tech courses, web development, programming, Sheryians"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sheryians</title>
+    <title>Sheryians Coding School - Learn to Code with the Best</title>
     <link
-      rel="stylesheet"
+      rel="preload"
       href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
     <link
       rel="stylesheet"
@@ -15,26 +25,40 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="stylesheet" href="./assets/css/mobile.css" />
-    <link rel="stylesheet" href="./assets/css/tablet.css" />
   </head>
   <body>
-    <main class="main">
-      <!-- <header></header> -->
+    <main>
       <nav class="navbar show">
         <div class="logo">
           <img class="logo-img" src="./assets/img/logo.webp" alt="logo-img" />
           <span class="logo-text">Sheryians<br />coding school</span>
         </div>
         <div class="nav-links">
-          <a href="">Home</a>
-          <a href="">Courses</a>
-          <a href="">Cohort 2.0</a>
-          <a href="">Request Callback</a>
-          <a href="">Sign In</a>
+          <a href="#">Home</a>
+          <a href="#courses">Courses</a>
+          <a href="#cohort">Cohort 2.0</a>
+          <a href="#callback">Request Callback</a>
+          <a href="#signin">Sign In</a>
         </div>
-        <div class="menu"></div>
+        <div class="hamburger-menu">
+          <i class="iconoir-phone"></i>
+          <i class="iconoir-menu"></i>
+        </div>
+        <div class="menu">
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#cohort">Kodr</a></li>
+            <li><a href="#signin">Sign In</a></li>
+            <li><a href="#signup">Sign Up</a></li>
+            <!-- Added Sign Up -->
+          </ul>
+        </div>
       </nav>
       <section class="hero-section">
         <div class="hero-content">
@@ -44,7 +68,7 @@
               really really <span class="italic-text">good</span> at.</span
             >
           </h1>
-          <a href="#">Check Courses-Make an Impact</a>
+          <a href="#courses">Check Courses-Make an Impact</a>
           <span class="overlay-text"
             >Get ready to
             <span class="text-highlight">accelerate your career</span> with
@@ -54,19 +78,19 @@
         <div class="hero-bottom">
           <div class="mildstone">
             <div class="text">
-              <h2>25K+</h2>
+              <p class="h2-like">25K+</p>
               <p>Students taught</p>
             </div>
           </div>
           <div class="mildstone">
             <div class="text">
-              <h2>20+</h2>
+              <p class="h2-like">20+</p>
               <p>Instructors</p>
             </div>
           </div>
           <div class="mildstone">
             <div class="text">
-              <h2>1M</h2>
+              <p class="h2-like">1M</p>
               <p>Youtube Subs.</p>
             </div>
           </div>
@@ -74,10 +98,10 @@
       </section>
       <section class="middle-section">
         <div class="middle-top">
-          <span>
-            we do whatever it takes to help you <br />
+          <h2>
+            we do whatever it takes to help you
             <span class="text-highlight">understand the concepts.</span>
-          </span>
+          </h2>
         </div>
         <div class="video-container">
           <iframe
@@ -89,12 +113,14 @@
           ></iframe>
         </div>
         <div class="middle-bottom">
-          <a href="#">Explore free learning</a>
+          <a href="#free-learning">Explore free learning</a>
         </div>
       </section>
-      <section class="courses-section">
+      <section id="courses" class="courses-section">
         <h2 class="courses-title">Courses Offered.</h2>
-        <div class="card-container" id="card-container"></div>
+        <div class="swiper course-swiper">
+          <div class="card-container swiper-wrapper" id="card-container"></div>
+        </div>
       </section>
       <section class="company-section">
         <div class="company-section-top">
@@ -109,7 +135,7 @@
           <img src="./assets/img/companies.webp" alt="" />
         </div>
         <div class="company-section-bottom">
-          <a href="#">Explore courses</a>
+          <a href="#courses">Explore courses</a>
         </div>
       </section>
       <footer>
@@ -131,20 +157,25 @@
           </div>
           <div class="box-inside-footer-top">
             <h4 class="links-head">Company</h4>
-            <a href="">About Us</a>
-            <a href="">Support</a>
-            <a href="">Privacy Policy</a>
-            <a href="">Terms and Condition</a>
-            <a href="">Pricing and Refund</a>
-            <a href="">Hire From Us</a>
-            <a href="">Submit Projects</a>
+            <a href="/about">About Us</a>
+            <a href="/support">Support</a>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms and Condition</a>
+            <a href="/refunds">Pricing and Refund</a>
+            <a href="/hiring">Hire From Us</a>
+            <a href="/projects">Submit Projects</a>
           </div>
           <div class="box-inside-footer-top">
             <h4 class="links-head">Community</h4>
-            <a href="#">Discord</a>
+            <a
+              href="https://discord.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Discord</a
+            >
           </div>
           <div class="box-inside-footer-top">
-            <h4 class="links-head">Get in touch</h4>
+            <h4 id="contact" class="links-head">Get in touch</h4>
             <div class="options">
               <p>Online: 11am - 8pm</p>
               <a href="#">+91 9993478545</a>
@@ -153,8 +184,8 @@
               <p>Offline: 11am - 8pm</p>
               <a href="#">+91 96917 78470</a>
             </div>
-            <a href="#">hello@sheryians.com</a>
-            <a href="#">23-B, Indrapuri Sector C, Bhopal(MP), 462021</a>
+            <a href="mailto:hello@sheryians.com">hello@sheryians.com</a>
+            <address>23-B, Indrapuri Sector C, Bhopal(MP), 462021</address>
           </div>
         </div>
         <div class="copyright-section">
@@ -162,6 +193,8 @@
         </div>
       </footer>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="/swiper/swiper-bundle.min.js"></script>
     <script src="/assets/js/data.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>
