@@ -680,6 +680,7 @@ footer {
     display: flex;
     grid-template-columns: none;
     max-width: none;
+width:100vw;
     margin: 0;
   }
 
