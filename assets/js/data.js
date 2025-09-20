@@ -5,7 +5,7 @@ const coursesData = [
     price: 5999,
     originalPrice: 11999,
     discount: '50% OFF',
-    imageUrl: '/assets/img/cohort.webp',
+    imageUrl: 'assets/img/cohort.webp',
     offerText: 'Early Bird Discount',
     gstApplicable: true,
     status: 'Job Ready',
