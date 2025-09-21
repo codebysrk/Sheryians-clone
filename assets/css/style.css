@@ -457,9 +457,7 @@ footer {
   font-family: 'helb';
   font-size: 0.95rem;
 }
-@media (max-width: 992px) {
-}
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   nav {
     padding: 2.2rem 1.5rem;
   }
@@ -558,14 +556,14 @@ footer {
     width: 85vw;
     flex-shrink: 0;
   }
+  .company-section-bottom a {
+    display: none;
+  }
   .footer-top {
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: 5vh 10vw;
     width: 100%;
     padding: 10vh 5vw;
-  }
-  .box-inside-footer-top {
-    min-width: 40%;
   }
 }
