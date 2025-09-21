@@ -80,12 +80,6 @@
   --z-index-mobile-menu: 101;
 }
 
-/* ==============================================
-  Global & Reset Styles
-  - Added fallback font families.
-  - Added accessible focus styles for keyboard navigation.
-  ==============================================
-*/
 * {
   margin: 0;
   padding: 0;
