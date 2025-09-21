@@ -26,11 +26,10 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="swiper/swiper-bundle.min.css" />
-
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
-    <main>
+    <header>
       <nav class="navbar show">
         <div class="logo">
           <img class="logo-img" src="assets/img/logo.webp" alt="logo-img" />
@@ -44,15 +43,26 @@
           <a href="#signin">Sign In</a>
         </div>
         <div class="hamburger-menu">
-          <i class="iconoir-phone"></i>
-          <i class="iconoir-menu"></i>
+          <a
+            href="#callback"
+            class="callback-icon-link"
+            aria-label="Request a callback"
+          >
+            <i class="iconoir-phone"></i>
+          </a>
+          <button
+            class="hamburger-toggle"
+            aria-label="Open menu"
+            aria-expanded="false"
+          >
+            <i class="iconoir-menu"></i>
+          </button>
         </div>
         <div class="menu">
           <div class="menu-div">
             <i class="fa-solid fa-xmark"></i>
             <h2>Menu</h2>
           </div>
-
           <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#courses">Courses</a></li>
@@ -61,6 +71,8 @@
           </ul>
         </div>
       </nav>
+    </header>
+    <main>
       <section class="hero-section">
         <div class="hero-content">
           <h1 class="hero-title">
@@ -69,7 +81,7 @@
               really really <span class="italic-text">good</span> at.</span
             >
           </h1>
-          <a href="#courses">Check Courses-Make an Impact</a>
+          <a href="#courses" class="btn">Check Courses-Make an Impact</a>
           <span class="overlay-text"
             >Get ready to
             <span class="text-highlight">accelerate your career</span> with
@@ -114,7 +126,13 @@
           ></iframe>
         </div>
         <div class="middle-bottom">
-          <a href="https://youtube.com/@sheryians?si=2D-Zax-BbzAGMzYH">Explore free learning</a>
+          <a
+            href="https://youtube.com/@sheryians?si=2D-Zax-BbzAGMzYH"
+            class="btn"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Explore free learning</a
+          >
         </div>
       </section>
       <section id="courses" class="courses-section">
@@ -135,7 +153,7 @@
           <img src="assets/img/companies.webp" alt="Company Logos" />
         </div>
         <div class="company-section-bottom">
-          <a href="#courses">Explore courses</a>
+          <a href="#courses" class="btn">Explore courses</a>
         </div>
       </section>
       <footer id="footer">
@@ -200,6 +218,33 @@
         </div>
       </footer>
     </main>
+
+    <template id="course-card-template">
+      <a href="#" class="scroll-item swiper-slide">
+        <div class="card-header">
+          <div class="status-badge"></div>
+          <img src="" alt="" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-content-wrapper">
+            <h2 class="card-title"></h2>
+            <div class="card-body-tags"></div>
+          </div>
+          <div class="card-body-bottom">
+            <div class="left"><span class="highlight-text"></span></div>
+            <div class="right">
+              <div class="price-details">
+                <p class="price"></p>
+                <span class="gst"></span>
+                <del></del>
+              </div>
+              <div class="discount"></div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </template>
+
     <script src="swiper/swiper-bundle.min.js"></script>
     <script src="assets/js/data.js"></script>
     <script src="assets/js/script.js"></script>
