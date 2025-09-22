@@ -100,7 +100,7 @@ body {
 
 /* Custom Scrollbar Styling (New) */
 body::-webkit-scrollbar {
-  width: 10px;
+  width: 0;
 }
 body::-webkit-scrollbar-track {
   background: var(--bg-color);
@@ -513,6 +513,9 @@ a.scroll-item:hover {
   max-width: 80vw;
   width: 100%;
 }
+.mobile {
+  display: none;
+}
 .company-section .image-container img {
   width: 100%;
   object-fit: contain;
@@ -650,23 +653,45 @@ footer {
     font-family: 'Neue Machina', sans-serif;
     color: var(--text-secondary);
   }
+
+  /* ==============================================
+  Hero Section
+  ==============================================
+*/
   .hero-content {
-    margin-top: 12vh;
-    padding: 0 5vw;
+    padding: 0;
+    margin-top: 16vh;
   }
+  .hero-title {
+    font-size: 4rem;
+    max-width: max-content;
+    margin: 0;
+  }
+  /* Using the reusable .btn class */
   .hero-content .btn {
-    font-size: 1.2rem;
-    padding: 0.8rem 1.5rem;
+    margin-top: 4.3vh;
+    padding: 0.9rem 3.5rem;
+    font-size: 1.35rem;
+    align-self: center;
   }
   .hero-content .overlay-text {
     display: none;
   }
   .hero-bottom {
-    flex-wrap: wrap;
-    margin: 15vw 0 20vh 0;
+    gap: 3rem;
+    margin: 0;
+    margin-top: 5rem;
   }
-  .middle-section {
-    padding: 0 5vw;
+  .hero-bottom .mildstone .text {
+    font-size: 1rem;
+    text-align: center;
+  }
+  .hero-bottom .mildstone .text .h2-like {
+    font-size: 1.8em;
+  }
+  .middle-section .middle-top h2 {
+    font-size: 1.8rem;
+    padding: 0;
   }
   .middle-section .video-container {
     width: 100%;
@@ -692,14 +717,35 @@ footer {
     width: 85vw;
     flex-shrink: 0;
   }
+  .company-section {
+    margin: 0;
+    margin-top: 15vh;
+    gap: 2rem;
+  }
+  .company-section .company-section-top {
+    font-size: 2.2rem;
+    padding: 0;
+  }
+  .desktop {
+    display: none;
+  }
+  .mobile {
+    display: block;
+  }
   .company-section-bottom a {
     display: none;
+  }
+  .footer {
+    background-color: crimson;
   }
   .footer-top {
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: 5vh 10vw;
     width: 100%;
-    padding: 10vh 5vw;
+    padding: 5rem 0;
+  }
+  .copyright-section {
+    max-width: max-content;
   }
 }
