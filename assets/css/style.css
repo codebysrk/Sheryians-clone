@@ -124,7 +124,7 @@ input:focus-visible {
   border-radius: 2px;
 }
 
-main {
+.main-wrapper {
   width: 100%;
   background-image: url(/assets/img/bg-img.svg);
   background-size: cover;
