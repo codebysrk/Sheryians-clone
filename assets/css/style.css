@@ -126,7 +126,7 @@ input:focus-visible {
 
 .main-wrapper {
   width: 100%;
-  background-image: url(/assets/img/bg-img.svg);
+  background-image: url(../img/bg-img.svg); /* Changed to relative path */
   background-size: cover;
 }
 a {
@@ -184,7 +184,12 @@ nav {
   padding: 2.2rem var(--section-inline-padding);
   font-family: 'Neue Machina', sans-serif;
   font-weight: 300;
-  background-color: rgba(12, 12, 12, 0); /* Slightly more opaque for better readability */
+  background-color: rgba(
+    12,
+    12,
+    12,
+    0
+  ); /* Slightly more opaque for better readability */
   backdrop-filter: blur(4px);
 }
 nav .logo {
