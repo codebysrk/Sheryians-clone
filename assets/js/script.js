@@ -1,4 +1,116 @@
-document.addEventListener('DOMContentLoaded',()=>{const cardContainer=document.getElementById('card-container');const cardTemplate=document.getElementById('course-card-template');let courseSwiper;// --- Card Generation Logic (Updated to use <template>) --- // First,check if the data and template exist if (typeof coursesData !=='undefined' && Array.isArray(coursesData) && cardTemplate){coursesData.forEach((course)=>{// Clone the template content const cardClone=cardTemplate.content.cloneNode(true);// Select elements within the cloned template to populate them const cardLink=cardClone.querySelector('a');const statusBadge=cardClone.querySelector('.status-badge');const cardImage=cardClone.querySelector('img');const cardTitle=cardClone.querySelector('.card-title');const tagsContainer=cardClone.querySelector('.card-body-tags');const offerText=cardClone.querySelector('.highlight-text');const price=cardClone.querySelector('.price');const gst=cardClone.querySelector('.gst');const originalPrice=cardClone.querySelector('del');const discount=cardClone.querySelector('.discount');// Populate the elements with data cardLink.href=`#course/${course.id || course.title.toLowerCase().replace(/ /g,'-')}`;if (course.status){statusBadge.textContent=course.status}else{statusBadge.remove();// Remove badge if no status}cardImage.src=course.imageUrl;cardImage.alt=course.title;cardTitle.textContent=course.title;const tagsHtml=course.tags .map((tag)=>`<p class="tag tag-${tag.replace(
+document.addEventListener('DOMContentLoaded', () => {
+  const cardContainer = document.getElementById('card-container');
+  const cardTemplate = document.getElementById('course-card-template');
+  let courseSwiper;
+
+  // --- Card Generation Logic (Updated to use <template>) ---
+  // First, check if the data and template exist
+  if (
+    typeof coursesData !== 'undefined' &&
+    Array.isArray(coursesData) &&
+    cardTemplate
+  ) {
+    coursesData.forEach((course) => {
+      // Clone the template content
+      const cardClone = cardTemplate.content.cloneNode(true);
+
+      // Select elements within the cloned template to populate them
+      const cardLink = cardClone.querySelector('a');
+      const statusBadge = cardClone.querySelector('.status-badge');
+      const cardImage = cardClone.querySelector('img');
+      const cardTitle = cardClone.querySelector('.card-title');
+      const tagsContainer = cardClone.querySelector('.card-body-tags');
+      const offerText = cardClone.querySelector('.highlight-text');
+      const price = cardClone.querySelector('.price');
+      const gst = cardClone.querySelector('.gst');
+      const originalPrice = cardClone.querySelector('del');
+      const discount = cardClone.querySelector('.discount');
+
+      // Populate the elements with data
+      cardLink.href = `#course/${
+        course.id || course.title.toLowerCase().replace(/ /g, '-')
+      }`;
+
+      if (course.status) {
+        statusBadge.textContent = course.status;
+      } else {
+        statusBadge.remove(); // Remove badge if no status
+      }
+
+      cardImage.src = course.imageUrl;
+      cardImage.alt = course.title;
+      cardTitle.textContent = course.title;
+
+      const tagsHtml = course.tags
+        .map(
+          (tag) =>
+            `<p class="tag tag-${tag.replace(
               ' ',
               '-'
-            )}">${tag.toUpperCase()}</p>`) .join('');tagsContainer.innerHTML=tagsHtml;offerText.textContent=course.offerText || '';price.textContent=`₹ ${course.price}`;gst.textContent=course.gstApplicable ? '(+GST)' :'';originalPrice.textContent=`₹ ${course.originalPrice}`;discount.textContent=course.discount;// Append the populated card to the container cardContainer.appendChild(cardClone)})}else{// Handle the case where data or template is missing console.error("Error: 'coursesData' is not available or the card template is missing.");cardContainer.innerHTML="<p>Sorry, we couldn't load the courses right now.</p>"}// --- Swiper initialization for mobile --- const mediaQuery=window.matchMedia('(max-width: 768px)');function handleSwiper(query){if (query.matches){if (!courseSwiper){courseSwiper=new Swiper('.course-swiper',{slidesPerView:'auto',spaceBetween:15,centeredSlides:false,grabCursor:true,})}}else{if (courseSwiper){courseSwiper.destroy(true,true);courseSwiper=undefined}}}handleSwiper(mediaQuery);mediaQuery.addEventListener('change',handleSwiper);// --- Hamburger Menu Logic --- const hamburgerIcon=document.querySelector('.hamburger-toggle');const mobileMenu=document.querySelector('.menu');const closeMenuButton=document.querySelector('.fa-xmark');const menuLinks=document.querySelectorAll('.menu ul li a');const openMenu=()=>{mobileMenu.classList.add('menu-active');hamburgerIcon.setAttribute('aria-expanded','true')};const closeMenu=()=>{mobileMenu.classList.remove('menu-active');hamburgerIcon.setAttribute('aria-expanded','false')};hamburgerIcon.addEventListener('click',openMenu);closeMenuButton.addEventListener('click',closeMenu);menuLinks.forEach((link)=>{link.addEventListener('click',closeMenu)})});
+            )}">${tag.toUpperCase()}</p>`
+        )
+        .join('');
+      tagsContainer.innerHTML = tagsHtml;
+
+      offerText.textContent = course.offerText || '';
+      price.textContent = `₹ ${course.price}`;
+      gst.textContent = course.gstApplicable ? '(+GST)' : '';
+      originalPrice.textContent = `₹ ${course.originalPrice}`;
+      discount.textContent = course.discount;
+
+      // Append the populated card to the container
+      cardContainer.appendChild(cardClone);
+    });
+  } else {
+    // Handle the case where data or template is missing
+    console.error(
+      "Error: 'coursesData' is not available or the card template is missing."
+    );
+    cardContainer.innerHTML =
+      "<p>Sorry, we couldn't load the courses right now.</p>";
+  }
+
+  // --- Swiper initialization for mobile ---
+  const mediaQuery = window.matchMedia('(max-width: 768px)');
+  function handleSwiper(query) {
+    if (query.matches) {
+      if (!courseSwiper) {
+        courseSwiper = new Swiper('.course-swiper', {
+          slidesPerView: 'auto',
+          spaceBetween: 15,
+          centeredSlides: false,
+          grabCursor: true,
+        });
+      }
+    } else {
+      if (courseSwiper) {
+        courseSwiper.destroy(true, true);
+        courseSwiper = undefined;
+      }
+    }
+  }
+  handleSwiper(mediaQuery);
+  mediaQuery.addEventListener('change', handleSwiper);
+
+  // --- Hamburger Menu Logic ---
+  const hamburgerIcon = document.querySelector('.hamburger-toggle');
+  const mobileMenu = document.querySelector('.menu');
+  const closeMenuButton = document.querySelector('.fa-xmark');
+  const menuLinks = document.querySelectorAll('.menu ul li a');
+
+  const openMenu = () => {
+    mobileMenu.classList.add('menu-active');
+    hamburgerIcon.setAttribute('aria-expanded', 'true');
+  };
+
+  const closeMenu = () => {
+    mobileMenu.classList.remove('menu-active');
+    hamburgerIcon.setAttribute('aria-expanded', 'false');
+  };
+
+  hamburgerIcon.addEventListener('click', openMenu);
+  closeMenuButton.addEventListener('click', closeMenu);
+  menuLinks.forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+});
