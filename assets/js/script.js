@@ -113,4 +113,19 @@ document.addEventListener('DOMContentLoaded', () => {
   menuLinks.forEach((link) => {
     link.addEventListener('click', closeMenu);
   });
+
+  // --- Nav Scroll Logic ---
+  let lastScrollY = window.scrollY;
+  const header = document.querySelector('header');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > lastScrollY) {
+      // Scrolling down
+      header.classList.add('nav-hidden');
+    } else {
+      // Scrolling up
+      header.classList.remove('nav-hidden');
+    }
+    lastScrollY = window.scrollY;
+  });
 });
